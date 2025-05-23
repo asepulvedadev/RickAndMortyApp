@@ -1,0 +1,250 @@
+.battle-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.battle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  h1 {
+    color: var(--text-color);
+    font-size: 2rem;
+    text-shadow: 0 2px 4px var(--shadow-color);
+  }
+}
+
+.battle-button {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  background: var(--primary-gradient);
+  color: var(--text-color);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  i {
+    font-size: 1.2rem;
+  }
+}
+
+.battle-arena {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.character-slot {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.5s ease;
+  position: relative;
+
+  &.winner {
+    animation: winnerPulse 2s infinite;
+    transform: scale(1.05);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: linear-gradient(45deg, 
+        rgba(255, 215, 0, 0.2),
+        rgba(255, 215, 0, 0.1),
+        rgba(255, 215, 0, 0.2)
+      );
+      border-radius: 20px;
+      z-index: -1;
+      animation: borderGlow 2s infinite;
+    }
+
+    &::after {
+      content: '👑';
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      animation: crownFloat 2s infinite;
+    }
+
+    .power-stats {
+      animation: statsGlow 2s infinite;
+    }
+  }
+}
+
+@keyframes winnerPulse {
+  0% {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+  }
+}
+
+@keyframes borderGlow {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes crownFloat {
+  0% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes statsGlow {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  }
+}
+
+.vs-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  position: relative;
+}
+
+.vs-text {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  text-shadow: 0 2px 4px var(--shadow-color);
+  animation: vsPulse 2s infinite;
+}
+
+@keyframes vsPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+.power-stats {
+  display: flex;
+  gap: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-color);
+
+  i {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+  }
+
+  span {
+    font-weight: bold;
+  }
+}
+
+.battle-result {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  animation: resultAppear 0.5s ease-out;
+
+  h2 {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    text-shadow: 0 2px 4px var(--shadow-color);
+  }
+}
+
+@keyframes resultAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .battle-arena {
+    flex-direction: column;
+  }
+
+  .vs-container {
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  .power-stats {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+} 
